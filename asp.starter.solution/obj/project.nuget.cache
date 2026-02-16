@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "0GjJ+0S8ak4=",
+  "success": true,
+  "projectFilePath": "/Users/lin.pengpeng/RiderProjects/asp.net.startapp/asp.starter.solution/asp.starter.backend.csproj",
+  "expectedPackageFiles": [
+    "/Users/lin.pengpeng/.nuget/packages/microsoft.aspnetcore.openapi/10.0.3/microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
+    "/Users/lin.pengpeng/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
