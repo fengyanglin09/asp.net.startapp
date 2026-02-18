@@ -1,6 +1,6 @@
 namespace asp.starter.backend.InfrastructureModule.Config;
 
-public static class DependencyInjection
+public static class AppDependencyInjection
 {
     public static IServiceCollection AddInfrastructureModule(this IServiceCollection services, IConfiguration configuration)
     {

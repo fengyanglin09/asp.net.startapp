@@ -1,23 +1,34 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
+﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["asp.starter.backend.csproj", "./"]
-RUN dotnet restore "asp.starter.backend.csproj"
-COPY . .
-WORKDIR "/src/"
-RUN dotnet build "./asp.starter.backend.csproj" -c $BUILD_CONFIGURATION -o /app/build
+# Install CA tools
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./asp.starter.backend.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+# Trust corporate root CA (for TLS inspection/proxy)
+COPY corp-root-ca.crt /usr/local/share/ca-certificates/corp-root-ca.crt
+RUN update-ca-certificates
 
-FROM base AS final
+
+#COPY \*.csproj ./ copies all C# project files from your build context into the container's working directory. This is done early to leverage Docker layer caching.
+#RUN dotnet restore HelloWorld.csproj restores NuGet dependencies for the HelloWorld.csproj project, preparing the project for build and publish steps.
+# copy the project file ".csproj" only to leverage Docker's layer caching. This way, if you change your source code but not your project file, Docker can reuse the cached layers for restoring dependencies, which speeds up the build process.
+COPY *.csproj ./
+RUN dotnet restore HelloWorld.csproj
+
+
+# copy the program files and publish the application. This step copies all the source code files into the container and then runs the dotnet publish command
+COPY . ./
+RUN dotnet publish HelloWorld.csproj -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "asp.starter.backend.dll"]
+COPY --from=build /app/out ./
+
+# Set the ASP.NET Core URL environment variable to listen on port 8080. This tells the ASP.NET Core application to bind to port 8080 when it runs inside the container.
+ENV ASPNETCORE_URLS=http://+:8080
+
+# tells Docker that the container listens on port 8080 at runtime. This is important for networking and allows external clients to connect to the application running inside the container.
+EXPOSE 8080 
+
+ENTRYPOINT ["dotnet", "MyDotNetApp.dll"]
