@@ -7,7 +7,9 @@
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5272",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Database__Username": "smash-webapp-d-accurate-polecat",
+        "Database__Password": "mgc675S&pV7Rb[2I"
       }
     },
     "https": {

@@ -16,6 +16,7 @@ public static class AppConfigModule
         services.AddInfrastructureModule(configuration);
         services.AddAuthModule(configuration);
         
+        
         // cross-cutting concerns - logging, authentication, authorization, caching, etc.
         
         
