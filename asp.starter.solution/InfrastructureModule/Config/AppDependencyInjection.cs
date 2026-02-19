@@ -7,19 +7,6 @@ namespace asp.starter.backend.InfrastructureModule.Config;
 
 public static class AppDependencyInjection
 {
-    // public static IServiceCollection AddDatabaseOptions(this IServiceCollection services, IConfiguration configuration)
-    // {
-    //     
-    //     services.AddOptions<DatabaseOptions>()
-    //         .Bind(configuration.GetSection("Database"))
-    //         .Validate(o => !string.IsNullOrWhiteSpace(o.Host), "Database:Host is required")
-    //         .Validate(o => !string.IsNullOrWhiteSpace(o.Name), "Database:Name is required")
-    //         .Validate(o => !string.IsNullOrWhiteSpace(o.Username), "Database:Username is required")
-    //         .Validate(o => !string.IsNullOrWhiteSpace(o.Password), "Database:Password is required")
-    //         .ValidateOnStart();
-    //     
-    //     return services;
-    // }
 
     public static IServiceCollection AddInfrastructureModule(this IServiceCollection services, IConfiguration config)
     {
@@ -33,8 +20,9 @@ public static class AppDependencyInjection
             .Bind(config.GetSection("Database")) // or DatabaseSettings if that’s your chosen name
             .PostConfigure(options =>
             {
-                options.Username = Environment.GetEnvironmentVariable("DB_USER") ?? "";
-                options.Password = Environment.GetEnvironmentVariable("DB_PASS") ?? "";
+                options.Username = config["DB_USER"] ?? "";
+                options.Password = config["DB_PASS"] ?? "";
+                options.Host = config["DB_HOST"] ?? "127.0.0.1";
             })
             .Validate(o => !string.IsNullOrWhiteSpace(o.Host), "Database:Host is required")
             .Validate(o => !string.IsNullOrWhiteSpace(o.Name), "Database:Name is required")
@@ -69,7 +57,7 @@ public static class AppDependencyInjection
 
 public sealed class DatabaseOptions
 {
-    public string Host { get; set; } = "127.0.0.1";
+    public string Host { get; set; } = "";
     public int Port { get; set; } = 5432;
     public string Name { get; set; } = "";
     public string Username { get; set; } = "";
