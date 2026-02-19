@@ -39,44 +39,10 @@ $ ./cloud-sql-proxy INSTANCE_CONNECTION_NAME &
 # Or Windows (with cloud-sql-proxy on the path and the specific instance specified)
 # Dev
 ```shell
-$ cloud-sql-proxy smash-webapp-d-404913688383:us-central1:smash-webapp-d-404913688383-db-dlmp-cad-dev
+$ cloud-sql-proxy spaa-dashboard-d:us-central1:spaa-dashboard-d-db-dlmp-cad-dev
 ```
 
-
-# Dev - secondary
+# Test
 ```shell
-$ cloud-sql-proxy smash-webapp-d-404913688383:us-central1:smash-webapp-d-404913688383-db-dlmp-cad-dev-secondary
-```
-
-# Int
-```shell
-$ cloud-sql-proxy smash-webapp-t-404913688383:us-central1:smash-webapp-t-404913688383-db-dlmp-cad-test
-```
-
-
-# Stage
-```shell
-$ cloud-sql-proxy smash-webapp-s-465825341433:us-central1:smash-webapp-s-465825341433-db-dlmp-cad-stage
-```
-
-
-# prod
-```shell
-$ cloud-sql-proxy smash-webapp-p-465825341433:us-central1:smash-webapp-p-465825341433-db-dlmp-cad-prod
-```
-
-
-connect to smash - db - dev:
-```shell
-$ ~/Documents/MayoProjects/gcp/cloudSQLProxy/cloud-sql-proxy smash-webapp-d-404913688383:us-central1:smash-webapp-d-404913688383-db-dlmp-cad-dev
-```
-
-connect to smash - db - test:
-```shell
-$ ~/Documents/MayoProjects/gcp/cloudSQLProxy/cloud-sql-proxy smash-webapp-t-404913688383:us-central1:smash-webapp-t-404913688383-db-dlmp-cad-test
-```
-
-connect to smash - db - prod:
-```shell
-$ ~/Documents/MayoProjects/gcp/cloudSQLProxy/cloud-sql-proxy smash-webapp-p-465825341433:us-central1:smash-webapp-p-465825341433-db-dlmp-cad-prod
+$ cloud-sql-proxy spaa-dashboard-t:us-central1:spaa-dashboard-t-db-dlmp-cad-test
 ```

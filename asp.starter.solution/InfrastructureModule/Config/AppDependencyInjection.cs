@@ -31,6 +31,11 @@ public static class AppDependencyInjection
 
         services.AddOptions<DatabaseOptions>()
             .Bind(config.GetSection("Database")) // or DatabaseSettings if that’s your chosen name
+            .PostConfigure(options =>
+            {
+                options.Username = Environment.GetEnvironmentVariable("DB_USER") ?? "";
+                options.Password = Environment.GetEnvironmentVariable("DB_PASS") ?? "";
+            })
             .Validate(o => !string.IsNullOrWhiteSpace(o.Host), "Database:Host is required")
             .Validate(o => !string.IsNullOrWhiteSpace(o.Name), "Database:Name is required")
             .Validate(o => !string.IsNullOrWhiteSpace(o.Username), "Database:Username is required")
