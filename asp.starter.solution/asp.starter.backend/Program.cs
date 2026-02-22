@@ -29,3 +29,6 @@ app.MapGet("/db-ping", async (AppDbContext db) =>
 
 
 app.Run();
+
+
+public partial class Program { }

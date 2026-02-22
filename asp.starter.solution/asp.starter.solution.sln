@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.starter.backend", "asp.starter.backend\asp.starter.backend.csproj", "{A71D5946-B5AD-498A-BBEB-F0D7421FE3ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asp.starter.backend.test", "asp.starter.backend.test\asp.starter.backend.test.csproj", "{00189715-D40C-49BB-95CF-F1C8C50C8662}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{A71D5946-B5AD-498A-BBEB-F0D7421FE3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A71D5946-B5AD-498A-BBEB-F0D7421FE3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A71D5946-B5AD-498A-BBEB-F0D7421FE3ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00189715-D40C-49BB-95CF-F1C8C50C8662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00189715-D40C-49BB-95CF-F1C8C50C8662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00189715-D40C-49BB-95CF-F1C8C50C8662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00189715-D40C-49BB-95CF-F1C8C50C8662}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
