@@ -1,6 +1,0 @@
-@asp.starter.backend_HostAddress = http://localhost:5272
-
-GET {{asp.starter.backend_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
