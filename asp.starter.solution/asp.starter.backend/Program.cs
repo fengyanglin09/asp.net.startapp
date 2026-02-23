@@ -1,5 +1,5 @@
 using asp.starter.backend;
-using asp.starter.backend.InfrastructureModule.Persistence;
+using asp.starter.backend.InfrastructureModule.Persistence.DbContextConfig;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

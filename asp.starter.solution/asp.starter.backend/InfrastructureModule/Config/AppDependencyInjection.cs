@@ -1,4 +1,4 @@
-using asp.starter.backend.InfrastructureModule.Persistence;
+using asp.starter.backend.InfrastructureModule.Persistence.DbContextConfig;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Npgsql;
