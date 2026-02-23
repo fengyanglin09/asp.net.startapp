@@ -55,3 +55,17 @@ source ~/.bash_profile
 dotnet tool list --global
 dotnet ef --version
 ```
+
+
+--------------------------------------manually run
+##### note - this will need to be run inside the project folder where the .csproj file is located, and the connection string should be updated to match your database configuration
+```shell
+dotnet ef dbcontext scaffold \
+"Name=ConnectionStrings:Default" \
+Npgsql.EntityFrameworkCore.PostgreSQL \
+--output-dir InfrastructureModule/Persistence/Entities \
+--context-dir InfrastructureModule/Persistence \
+--context AppDbContext \
+--use-database-names \
+--no-onconfiguring
+```
