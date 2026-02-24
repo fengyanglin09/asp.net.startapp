@@ -1,13 +1,13 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
-# Install CA tools
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
-
-# Trust corporate root CA (for TLS inspection/proxy)
-COPY corp-root-ca.crt /usr/local/share/ca-certificates/corp-root-ca.crt
-RUN update-ca-certificates
+## Install CA tools
+#RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+#  && rm -rf /var/lib/apt/lists/*
+#
+## Trust corporate root CA (for TLS inspection/proxy)
+#COPY corp-root-ca.crt /usr/local/share/ca-certificates/corp-root-ca.crt
+#RUN update-ca-certificates
 
 
 #COPY \*.csproj ./ copies all C# project files from your build context into the container's working directory. This is done early to leverage Docker layer caching.

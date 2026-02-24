@@ -14,7 +14,7 @@ steps:
   #    building main image
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build',
-            '-f', 'Dockerfile',
+            '-f', './HistoricViewer/Dockerfile',
 #            '--secret', 'id=mvn_settings,env=gcp_mvn_settings',
 #            '--secret', 'id=npm_settings,env=gcp_npm_settings',
             '-t', '${_IMAGE_WEB}',
