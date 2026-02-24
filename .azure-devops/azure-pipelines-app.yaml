@@ -28,9 +28,9 @@ extends:
   parameters:
     # Uncomment if you are using variable groups
     PROD_USR_VARG:
-      - spaa-dashboard-web-app-configs
+      - lis-historic-viewer-api-configs
     DEV_USR_VARG:
-      - spaa-dashboard-web-app-configs
+      - lis-historic-viewer-api-configs
     USER_PIPELINE_VALUES:
       TAG_NAME: ${{ parameters.TAG_NAME }}
     CLOUD_BUILD_SUBSTITUTIONS:
