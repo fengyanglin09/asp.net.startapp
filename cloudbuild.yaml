@@ -25,7 +25,7 @@ steps:
 
 
 substitutions:
-  _IMAGE_WEB: '${_GCP_ARTIFACT_REPO}/spaa_dashboard_web:${TAG_NAME}'
+  _IMAGE_WEB: '${_GCP_ARTIFACT_REPO}/lis_historical_viewer:${TAG_NAME}'
 #  _IMAGE_LOADER: '${_GCP_ARTIFACT_REPO}/lsp_loader:${TAG_NAME}'
 options:
   dynamic_substitutions: true
