@@ -1,0 +1,42 @@
+steps:
+#  - name: gcr.io/cloud-builders/gcloud
+#    entrypoint: "bash"
+#    args: [ "-c", "mkdir -p /workspace/.m2 && echo $$gcp_mvn_settings > /workspace/.m2/settings.xml" ]
+#    secretEnv: [ "gcp_mvn_settings" ]
+
+#  - name: gcr.io/cloud-builders/gcloud
+#    entrypoint: "bash"
+#    args: [ "-c", "mkdir -p /workspace/.m2 && echo $$gcp_npm_settings > /workspace/.m2/npm.txt" ]
+#    secretEnv: [ "gcp_npm_settings" ]
+
+
+
+  #    building main image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build',
+            '-f', 'Dockerfile',
+#            '--secret', 'id=mvn_settings,env=gcp_mvn_settings',
+#            '--secret', 'id=npm_settings,env=gcp_npm_settings',
+            '-t', '${_IMAGE_WEB}',
+            './HistoricViewer' ]
+    secretEnv: [ "gcp_npm_settings", "gcp_mvn_settings" ]
+    env:
+      - 'DOCKER_BUILDKIT=1'
+
+
+substitutions:
+  _IMAGE_WEB: '${_GCP_ARTIFACT_REPO}/spaa_dashboard_web:${TAG_NAME}'
+#  _IMAGE_LOADER: '${_GCP_ARTIFACT_REPO}/lsp_loader:${TAG_NAME}'
+options:
+  dynamic_substitutions: true
+  logging: CLOUD_LOGGING_ONLY
+images:
+  - '${_IMAGE_WEB}'
+#  - '${_IMAGE_LOADER}'
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_NUMBER/secrets/app_mvn_settings/versions/latest
+      env: 'gcp_mvn_settings'
+    - versionName: projects/$PROJECT_NUMBER/secrets/app_npm_settings/versions/latest
+      env: 'gcp_npm_settings'
+

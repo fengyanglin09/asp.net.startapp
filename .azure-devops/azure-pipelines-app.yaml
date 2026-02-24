@@ -1,0 +1,38 @@
+#this pipeline is responsible for CI
+
+resources:
+  repositories:
+    - repository: util-pipelines
+      type: git
+      name: Mayo Open Developer Network/ado-utility-pipelines
+      ref: refs/heads/main
+
+trigger: #none
+  - main
+  - test
+  - develop
+  - qa
+  - stage
+
+
+name: $(BuildDefinitionName)_v$(Build.SourceBranchName)_b$(Date:yyyyMMddmmss)$(Rev:.r)
+
+parameters:
+  - name: TAG_NAME
+    type: string
+    default: 'latest'
+
+
+extends:
+  template: ado_cloud_build_trigger.yaml@util-pipelines
+  parameters:
+    # Uncomment if you are using variable groups
+    PROD_USR_VARG:
+      - spaa-dashboard-web-app-configs
+    DEV_USR_VARG:
+      - spaa-dashboard-web-app-configs
+    USER_PIPELINE_VALUES:
+      TAG_NAME: ${{ parameters.TAG_NAME }}
+    CLOUD_BUILD_SUBSTITUTIONS:
+#      - ADO_BASE64_PAT_TOKEN
+      - GCP_ARTIFACT_REPO
