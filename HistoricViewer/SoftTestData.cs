@@ -1,6 +1,6 @@
 namespace HistoricViewer;
 
-public class WeatherForecast
+public class SoftTestData
 {
     public DateOnly Date { get; set; }
 
