@@ -13,12 +13,12 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.MapOpenApi();      // OpenAPI JSON (typically /openapi/v1.json)
     app.UseSwagger();      // Swagger JSON (typically /swagger/v1/swagger.json)
     app.UseSwaggerUI();    // UI at /swagger
-}
+// }
 
 app.UseHttpsRedirection();
 
