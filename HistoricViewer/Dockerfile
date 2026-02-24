@@ -14,7 +14,7 @@ WORKDIR /app
 #RUN dotnet restore HelloWorld.csproj restores NuGet dependencies for the HelloWorld.csproj project, preparing the project for build and publish steps.
 # copy the project file ".csproj" only to leverage Docker's layer caching. This way, if you change your source code but not your project file, Docker can reuse the cached layers for restoring dependencies, which speeds up the build process.
 COPY *.csproj ./
-RUN ls -la && echo "----" && find . -maxdepth 2 -name "*.csproj" -print
+#RUN ls -la && echo "----" && find . -maxdepth 2 -name "*.csproj" -print
 RUN dotnet restore HistoricViewer.csproj
 
 
