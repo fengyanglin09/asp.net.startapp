@@ -19,13 +19,12 @@ public static class AppConfigModule
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        // if (app.Environment.IsDevelopment())
-        // {
-            app.MapOpenApi();
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        // }
-        //
+
+        app.MapOpenApi();
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
+        
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
