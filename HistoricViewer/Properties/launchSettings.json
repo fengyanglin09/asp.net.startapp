@@ -7,7 +7,7 @@
       "launchBrowser": false,
       "applicationUrl": "http://localhost:5107",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Develop",
+        "ASPNETCORE_ENVIRONMENT": "dev",
         "DB_USER": "lis-hist-vwr-d-probable-gnu",
         "DB_PASS": "qfY0-UFZ}6KPMYRH"
       }
@@ -18,7 +18,7 @@
       "launchBrowser": false,
       "applicationUrl": "https://localhost:7102;http://localhost:5107",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Develop"
+        "ASPNETCORE_ENVIRONMENT": "dev"
       }
     }
   }

@@ -17,6 +17,8 @@ public static class AppDatabaseConfigurations
                 options.Username = configuration["DB_USER"] ?? "";
                 options.Password = configuration["DB_PASS"] ?? "";
                 options.Host = configuration["DB_HOST"] ?? "127.0.0.1";
+                options.Port = int.TryParse(configuration["DB_PORT"], out var port) ? port : 5432;
+
             })
             .Validate(o => !string.IsNullOrWhiteSpace(o.Host), "Database:Host is required")
             .Validate(o => !string.IsNullOrWhiteSpace(o.Name), "Database:Name is required")
