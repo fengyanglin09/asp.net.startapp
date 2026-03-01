@@ -71,3 +71,63 @@ resource "google_project_service" "bigquerystorage" {
 ```
 
 ------------------------------------------
+##### NuGet packages for BigQuery access in .NET:
+```shell
+dotnet add package Google.Cloud.BigQuery.V2
+dotnet add package Google.Apis.Auth
+```
+
+###### Impersonation (Cloud Run SA → impersonates “bq-access-sa”)
+
+```csharp
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.BigQuery.V2;
+
+public class BigQueryService
+{
+    private readonly BigQueryClient _bq;
+
+    public BigQueryService()
+    {
+        var orgBProjectId = "org-b-project-id";
+
+        // The SA you want to impersonate (the one that has BigQuery permissions in Org B)
+        var targetServiceAccount = "bq-access-sa@your-project.iam.gserviceaccount.com";
+
+        // Source creds = Cloud Run runtime SA via ADC
+        GoogleCredential source = GoogleCredential.GetApplicationDefault();
+
+        // Create impersonated credential (short-lived token)
+        var impersonated = new ImpersonatedCredential(
+            source.UnderlyingCredential,
+            targetServiceAccount,
+            delegates: null,
+            scopes: new[] { "https://www.googleapis.com/auth/cloud-platform" },
+            lifetime: TimeSpan.FromHours(1));
+
+        // Build BigQuery client using the impersonated identity
+        _bq = BigQueryClient.Create(orgBProjectId, impersonated);
+    }
+
+    public async Task<List<dynamic>> QueryAsync()
+    {
+        string sql = @"
+            SELECT *
+            FROM `org-b-project-id.dataset.table`
+            LIMIT 10";
+
+        var results = await _bq.ExecuteQueryAsync(sql, parameters: null);
+
+        var rows = new List<dynamic>();
+        await foreach (var row in results)
+        {
+            rows.Add(new
+            {
+                Id = row["id"],
+                Name = row["name"]
+            });
+        }
+        return rows;
+    }
+}
+```
