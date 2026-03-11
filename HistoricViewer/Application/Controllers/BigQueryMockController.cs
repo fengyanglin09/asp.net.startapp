@@ -11,7 +11,7 @@ namespace HistoricViewer.Application.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class BigQueryMockController(IBigQueryProxyService bigQuery) : ControllerBase
-{
+{ 
     
     
     private readonly IBigQueryProxyService _bigQuery = bigQuery;
@@ -37,11 +37,19 @@ public class BigQueryMockController(IBigQueryProxyService bigQuery) : Controller
         ORDER BY ROW_LOADED_DTM DESC
         LIMIT {limit}";
 
-        var result = await _bigQuery.ExecuteQueryAsync(sql, new Dictionary<string, object>
-        {
-            ["from"] = fromUtc,
-            ["to"]   = toUtc
-        });
+
+        var sql2 = $@"
+                  SELECT * FROM `ml-mps-adl-mndsa-dlmpds-d-23a9.phi_dlmpds_stg_us_d.EXT_Division_Test_List` 
+                  LIMIT 1000
+                    ";
+
+        // var result = await _bigQuery.ExecuteQueryAsync(sql, new Dictionary<string, object>
+        // {
+        //     ["from"] = fromUtc,
+        //     ["to"]   = toUtc
+        // });
+
+        var result = await _bigQuery.ExecuteQueryAsync(sql2);
 
         //Return proper HTTP status based on success
         if (!result.Success)
