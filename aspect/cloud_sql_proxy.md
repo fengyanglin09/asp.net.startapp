@@ -8,6 +8,11 @@ hat you have set up the [Application Default Credentials](application_default_cr
 $ gcloud auth login --update-adc
 ```
 
+## Sets up local ADC to already act as the BQ SA
+```shell
+
+gcloud auth application-default login --impersonate-service-account=bq-sa@project-a.iam.gserviceaccount.com
+```
 
 ## Setting the Project
 
