@@ -3,6 +3,7 @@ using HistoricViewer.Infrastructure.Configs;
 using HistoricViewer.Infrastructure.gcp.bigQuery;
 using HistoricViewer.Security.Configs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 
 namespace HistoricViewer;
 
@@ -16,6 +17,10 @@ public static class AppConfigModule
         services.AddSecurityModule(configuration);
         services.AddDatabaseModule(configuration);
         services.AddBigQueryProxyService(configuration);
+        services.AddSwaggerGen(c => {
+            c.SwaggerDoc("BigQuery Testing", new OpenApiInfo { Title = "BigQuery Testing API", Version = "v1" });
+            c.EnableAnnotations();
+        });
         return services;
     }
     
@@ -24,7 +29,10 @@ public static class AppConfigModule
 
         app.MapOpenApi();
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/BigQuery%20Testing/swagger.json", "BigQuery Testing API");
+        });
 
         
         app.UseHttpsRedirection();
