@@ -16,6 +16,7 @@ public class BigQueryMockController(IBigQueryProxyService bigQuery) : Controller
     
     private readonly IBigQueryProxyService _bigQuery = bigQuery;
 
+    //todo - test this WHERE ORDER_CREATED_DATETIME BETWEEN '2020-09-18' AND '2022-02-12'
 
     [HttpGet]
     public async Task<IActionResult> Get(
@@ -32,24 +33,24 @@ public class BigQueryMockController(IBigQueryProxyService bigQuery) : Controller
 
         var sql = $@"
         SELECT *
-        FROM `ml-mps-adl-mndsa-dlmpds-p-c37b.phi_dlmpds_us_p.T_CLIENT`
-        WHERE ROW_LOADED_DTM BETWEEN @from AND @to
-        ORDER BY ROW_LOADED_DTM DESC
+        FROM `ml-mps-adl-mndsa-dlmpds-d-23a9.phi_dlmpds_stg_us_d.T_STG_SOFTLAB_ORDERS_TESTS`
+        WHERE TIMESTAMP(ORDER_CREATED_DATETIME) BETWEEN @from AND @to
+        ORDER BY ORDER_KEY DESC
         LIMIT {limit}";
 
 
-        var sql2 = $@"
-                  SELECT * FROM `ml-mps-adl-mndsa-dlmpds-d-23a9.phi_dlmpds_stg_us_d.EXT_Division_Test_List` 
-                  LIMIT 1000
-                    ";
+        // var sql2 = $@"
+        //           SELECT * FROM `ml-mps-adl-mndsa-dlmpds-d-23a9.phi_dlmpds_stg_us_d.EXT_Division_Test_List` 
+        //           LIMIT 1000
+        //             ";
 
-        // var result = await _bigQuery.ExecuteQueryAsync(sql, new Dictionary<string, object>
-        // {
-        //     ["from"] = fromUtc,
-        //     ["to"]   = toUtc
-        // });
+        var result = await _bigQuery.ExecuteQueryAsync(sql, new Dictionary<string, object>
+        {
+            ["from"] = fromUtc,
+            ["to"]   = toUtc
+        });
 
-        var result = await _bigQuery.ExecuteQueryAsync(sql2);
+        // var result = await _bigQuery.ExecuteQueryAsync(sql);
 
         //Return proper HTTP status based on success
         if (!result.Success)
