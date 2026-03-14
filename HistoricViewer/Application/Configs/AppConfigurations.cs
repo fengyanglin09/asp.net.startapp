@@ -7,9 +7,7 @@ public static class AppConfigurations
     {
         
         services.AddControllers();
-        services.AddOpenApi();
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
         
         return services;
         

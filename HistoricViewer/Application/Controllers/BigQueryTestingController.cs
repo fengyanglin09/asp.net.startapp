@@ -1,7 +1,7 @@
 using Google.Cloud.BigQuery.V2;
 using HistoricViewer.Infrastructure.gcp.bigQuery;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+
 
 namespace HistoricViewer.Application.Controllers;
 
@@ -10,9 +10,8 @@ namespace HistoricViewer.Application.Controllers;
 // from 2026-01-01T00:00:00Z
 // to 2026-03-11T23:59:59Z
 [ApiController]
-[Route("api/bigquery")]
-[ApiExplorerSettings(GroupName = "BigQuery Testing")]
-[SwaggerTag("BigQuery testing Controller")]
+[Route("api/bigquery-testing")]
+// [ApiExplorerSettings(GroupName = "BigQuery Testing")]
 public class BigQueryTestingController(IBigQueryProxyService bigQuery) : ControllerBase
 { 
     
@@ -21,12 +20,7 @@ public class BigQueryTestingController(IBigQueryProxyService bigQuery) : Control
 
     //todo - test this WHERE ORDER_CREATED_DATETIME BETWEEN '2020-09-18' AND '2022-02-12'
 
-    [HttpGet]
-    [Route("softlab-orders-tests")]
-    [SwaggerOperation(
-        Summary = "Get BigQuery soft orders tests Data",
-        Description = "Returns mock data from BigQuery between the specified dates."
-    )]
+    [HttpGet("softlab-orders-tests", Name = "test-softlab-orders")]
     public async Task<IActionResult> Get(
         DateTime? from = null,
         DateTime? to = null,
