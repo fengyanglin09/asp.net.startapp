@@ -40,17 +40,20 @@ public class BigQueryTestingController(IBigQueryProxyService bigQuery) : Control
         ORDER BY ORDER_KEY DESC
         LIMIT {limit}";
 
-
-        // var sql2 = $@"
-        //           SELECT * FROM `ml-mps-adl-mndsa-dlmpds-d-23a9.phi_dlmpds_stg_us_d.EXT_Division_Test_List` 
-        //           LIMIT 1000
-        //             ";
+        
 
         var result = await _bigQuery.ExecuteQueryAsync(sql, new Dictionary<string, object>
         {
             ["from"] = fromUtc,
             ["to"]   = toUtc
-        });
+        }
+        ,
+        new BigQueryQueryOptions
+        {
+            Timeout = TimeSpan.FromSeconds(120), // 2 minutes timeout for testing
+        }
+        
+        );
 
         // var result = await _bigQuery.ExecuteQueryAsync(sql);
 

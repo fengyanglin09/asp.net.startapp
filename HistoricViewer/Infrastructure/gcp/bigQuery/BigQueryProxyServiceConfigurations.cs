@@ -17,8 +17,8 @@ public static class BigQueryProxyServiceConfigurations
             .ValidateOnStart();
         
 
-        // Register the BigQuery proxy service
-        services.AddScoped<IBigQueryProxyService, BigQueryProxyService>();
+        // note: can not be scoped, need to be Singleton — preserves circuit breaker state and cached BigQuery client across requests
+        services.AddSingleton<IBigQueryProxyService, BigQueryProxyService>();
 
         return services;
     }
